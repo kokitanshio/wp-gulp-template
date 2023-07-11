@@ -1,0 +1,40 @@
+@use "./variable" as var;
+@use "./function" as fn;
+
+// メディアクエリ
+@mixin mq($breakpoint: m){
+  @media #{map-get(var.$breakpoints,$breakpoint)}{
+    @content;
+  }
+}
+
+// font周りのmixin
+@mixin font($size: null, $max-fz, $min-fz, $lh: null, $ls: null, $fw: null){
+  @if $size{
+    font-size: clamp(fn.rem($min-fz), calc($max-fz / $size * 100vw), fn.rem($max-fz));
+  }
+  @if $lh{
+    line-height: fn.lh($lh, $max-fz);
+  }
+  @if $ls{
+    letter-spacing: fn.spacing($ls);
+  }
+  @if $fw{
+    font-weight: $fw;
+  }
+}
+
+// font-sizeのVW化
+@mixin fz_vw($size: 16){
+  font-size: fn.get_vw($size);
+}
+
+// リンクのホバーアクションデフォルト
+@mixin hover() {
+  @include mq(hov){
+    transition: opacity var.$ts-time ease;
+    &:hover{
+      opacity: 0.7;
+    }
+  }
+}

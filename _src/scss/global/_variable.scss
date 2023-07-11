@@ -1,0 +1,39 @@
+// color
+$color: (
+  main: #D96894,
+
+  text: #333,
+);
+
+// font-family
+$ff-main: 'Noto Sans JP', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+
+// breakpoint
+$breakpoints: (
+  "xl":"screen and (max-width:1600px)",
+  "l":"screen and (max-width:1280px)",
+  "m":"screen and (max-width:1080px)",
+  "hov": "screen and (min-width: 768px)",
+  "sp":"screen and (max-width:767px)",
+  "xs":"screen and (max-width:499px)",
+);
+
+// layout
+$s-inner: 500px;
+$m-inner: 1000px;
+$l-inner: 1200px;
+
+// padding
+$padding-sp: 20px;
+$padding: 40px;
+
+// transition time
+$ts-time: 0.3s;
+
+// z-index
+$z-map: (
+  header: 100,
+  sidebar: 10,
+  base: 1,
+  under: -1,
+);
