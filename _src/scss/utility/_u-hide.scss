@@ -1,0 +1,29 @@
+@use "../global/" as global;
+
+.u-hide{
+  display: block;
+  @include global.mq(){
+    display: none;
+  }
+}
+
+.u-hide--sp{
+  display: block;
+  @include global.mq(sp){
+    display: none;
+  }
+}
+
+.u-show{
+  display: none;
+  @include global.mq(){
+    display: block;
+  }
+}
+
+.u-show--sp{
+  display: none;
+  @include global.mq(sp){
+    display: block;
+  }
+}

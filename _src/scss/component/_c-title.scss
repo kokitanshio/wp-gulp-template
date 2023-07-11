@@ -1,0 +1,5 @@
+@use "../global/" as global;
+
+.c-title{
+  @include global.font(1600, 32, 20, 48, 100, 700);
+}
