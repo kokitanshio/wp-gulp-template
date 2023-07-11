@@ -1,0 +1,15 @@
+# node file
+node_modules/
+
+# vs code setting
+.vscode/
+
+# dist
+assets/
+!_src/assets/
+
+*.php
+!_src/**/*.php
+
+parts/
+!_src/parts/
