@@ -5,11 +5,4 @@ node_modules/
 .vscode/
 
 # dist
-assets/
-!_src/assets/
-
-*.php
-!_src/**/*.php
-
-parts/
-!_src/parts/
+dist/
