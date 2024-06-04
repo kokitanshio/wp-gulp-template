@@ -96,14 +96,15 @@ add_post_type_support('page', 'excerpt');
 
 
 /**
- * デフォルトのjQueryを読まない
+ * デフォルトのスタイルやjQueryを読まない
  *
  * @codex https://wpdocs.osdn.jp/%E9%96%A2%E6%95%B0%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9/wp_deregister_script
  */
-function my_delete_local_jquery(){
+function my_delete_local_files(){
+  wp_deregister_style('wp-block-library');
   wp_deregister_script('jquery');
 }
-add_action('wp_enqueue_scripts', 'my_delete_local_jquery');
+add_action('wp_enqueue_scripts', 'my_delete_local_files');
 
 
 /**
@@ -113,7 +114,7 @@ add_action('wp_enqueue_scripts', 'my_delete_local_jquery');
  */
 function my_styles(){
   //style.css 読み込み
-  wp_enqueue_style('my', get_template_directory_uri().'assets/css/style.css', array(), filemtime(get_theme_file_path('assets/css/style.css')), 'all');
+  wp_enqueue_style('my', get_template_directory_uri().'/assets/css/style.css', array(), filemtime(get_theme_file_path('assets/css/style.css')), 'all');
 }
 add_action( 'wp_enqueue_scripts', 'my_styles' );
 
@@ -124,8 +125,10 @@ add_action( 'wp_enqueue_scripts', 'my_styles' );
  * @codex https://wpdocs.osdn.jp/%E3%83%8A%E3%83%93%E3%82%B2%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC
  */
 function my_scripts() {
+  //jQuery読み込み
+  wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js', array(), '1.0.0', true);
   //script.js 読み込み
-  wp_enqueue_script('my', get_template_directory_uri().'assets/js/bundle.js', array('jquery'), filemtime(get_theme_file_path('assets/js/bundle.js')), true);
+  wp_enqueue_script('my', get_template_directory_uri().'/assets/js/bundle.js', array('jquery'), filemtime(get_theme_file_path('assets/js/bundle.js')), true);
 }
 add_action( 'wp_enqueue_scripts', 'my_scripts' );
 
@@ -135,14 +138,14 @@ add_action( 'wp_enqueue_scripts', 'my_scripts' );
  *
  * @codex https://wpdocs.osdn.jp/%E9%96%A2%E6%95%B0%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9/register_nav_menus
  */
-function menu_init(){
-  register_nav_menus(array(
-    'header'=>'ヘッダーメニュー',
-    'drawer'=>'ドロワーメニュー',
-    'footer'=>'フッターメニュー',
-  ));
-}
-add_action('init','menu_init');
+// function menu_init(){
+//   register_nav_menus(array(
+//     'header'=>'ヘッダーメニュー',
+//     'drawer'=>'ドロワーメニュー',
+//     'footer'=>'フッターメニュー',
+//   ));
+// }
+// add_action('init','menu_init');
 
 
 /**

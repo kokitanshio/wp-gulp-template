@@ -9,10 +9,8 @@
 }
 
 // font周りのmixin
-@mixin font($size: null, $max-fz, $min-fz, $lh: null, $ls: null, $fw: null) {
-  @if $size {
-    font-size: clamp(fn.rem($min-fz), calc($max-fz / $size * 100vw), fn.rem($max-fz));
-  }
+@mixin font($size-pc: 1440, $size-sp: 375, $max-fz, $min-fz, $lh: null, $ls: null, $fw: null) {
+  font-size: clamp(fn.rem($min-fz), calc((($max-fz + $min-fz) / 2) / ((($size-pc + $size-sp) / 2)) * 100vw), fn.rem($max-fz));
   @if $lh {
     line-height: fn.lh($lh, $max-fz);
   }
@@ -31,10 +29,13 @@
 
 // ホバー時のmixin
 @mixin hover() {
-  @media (hover: hover) {
+  @media (any-hover: hover) {
     &:any-link:hover,
     &:enabled:hover {
       @content;
     }
+  }
+  &:focus-visible{
+    @content;
   }
 }

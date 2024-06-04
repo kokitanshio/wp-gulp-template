@@ -5,8 +5,8 @@ html {
 }
 
 body {
-  font-family: global.$ff-main;
-  color: map-get(global.$color, text);
+  font-family: var(--ff-main);
+  color: var(--color-text);
   &:has(dialog[open]) {
     overflow: hidden;
   }
@@ -17,6 +17,10 @@ a {
   color: inherit;
 }
 
+button {
+  touch-action: manipulation;
+}
+
 fieldset {
   margin: 0;
   padding: 0;
@@ -25,6 +29,7 @@ fieldset {
 
 summary {
   list-style-type: none;
+  cursor: pointer;
 }
 
 summary::-webkit-details-marker {

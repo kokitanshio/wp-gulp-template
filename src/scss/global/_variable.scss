@@ -1,34 +1,51 @@
-// color
-$color: (
-  main: #d96894,
+// css変数
+:root{
+  // color
+  --color-primary: #27A4EA;
+  --color-secondary: #F3D937;
+  --color-tertiary: #EF7643;
 
-  text: #333,
-);
+  --color-text: #333;
+  --color-white: #fff;
 
-// font-family
-$ff-main: "Noto Sans JP", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  // font-family
+  --ff-main: "Noto Sans JP", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --ff-en: "Jost", sans-serif;
 
-// breakpoint
+  // layout
+  --inner-s: 600px;
+  --inner-m: 1000px;
+  --inner-l: 1200px;
+
+  // padding
+  --padding-s: 20px;
+  --padding-m: 40px;
+
+  // header height
+  --header-pc: 100px;
+  --header-sp: 60px;
+
+  // ease-time
+  --ease-time: 0.3s;
+  // ease-type
+  --ease-type: ease-in-out;
+
+  // breakpoint
+  --break-xl: 1600px;
+  --break-l: 1280px;
+  --break-m: 1080px;
+  --break-s: 767px;
+  --break-xs: 499px;
+}
+
+// breakpoints
 $breakpoints: (
-  "xl": "screen and (max-width:1600px)",
-  "l": "screen and (max-width:1280px)",
-  "m": "screen and (max-width:1080px)",
-  "hov": "screen and (min-width: 768px)",
-  "s": "screen and (max-width:767px)",
-  "xs": "screen and (max-width:499px)",
+  "xl": "(max-width: 1600px",
+  "l": "(max-width: 1280px)",
+  "m": "(max-width: 1080px)",
+  "s": "(max-width: 767px)",
+  "xs": "(max-width: 499px)",
 );
-
-// layout
-$s-inner: 500px;
-$m-inner: 1000px;
-$l-inner: 1200px;
-
-// padding
-$padding-s: 20px;
-$padding: 40px;
-
-// transition time
-$ts-time: 0.3s;
 
 // z-index
 $z-map: (
