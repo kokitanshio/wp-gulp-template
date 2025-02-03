@@ -10,6 +10,7 @@ const autoprefixer = require("gulp-autoprefixer"); //ベンダープレフィッ
 const postcss = require("gulp-postcss"); //css-mqpackerを使用
 const mqpacker = require("css-mqpacker"); //メディアクエリをまとめる
 const cssDeclarationSorter = require("css-declaration-sorter"); //cssプロパティをソート
+const glob = require('gulp-sass-glob-use-forward'); //sassのimportを簡潔に記述
 
 // 画像圧縮
 const change = require("gulp-changed");
@@ -32,6 +33,7 @@ const distBase = "./dist";
 const srcPath = {
   scss: srcBase + "/scss/**/*.scss",
   img: srcBase + "/images/**/*.{png,jpg,jpeg,svg,ico,mp4}",
+  metaImg: srcBaseAssets + "/metaImages/**/*.{png,jpg,jpeg,svg,ico,json}",
   js: srcBase + "/js/*.js",
   php: srcBase + "/**/*.php",
 };
@@ -39,6 +41,7 @@ const srcPath = {
 const distPath = {
   css: distBase + "/assets/css/",
   img: distBase + "/assets/images/",
+  metaImg: distBase + "/",
   js: distBase + "/assets/js/",
   php: distBase + "/",
 };
@@ -67,6 +70,7 @@ const cssSass = (done) => {
     .src(srcPath.scss, {
       sourcemaps: true,
     })
+    .pipe(glob())
     .pipe(
       //エラーが出ても処理を止めない
       plumber({
@@ -140,6 +144,29 @@ const image = (done) => {
     .pipe(gulp.dest(distPath.img));
   done();
 };
+/**
+ * metaImg
+ */
+const metaImg = (done) => {
+  gulp.src(srcPath.metaImg)
+    .pipe(change(distBase))
+    .pipe(
+      imageMin([
+        pngQuant({
+          quality: [0.75, 0.8],
+          speed: 1,
+        }),
+        mozJpeg({
+          quality: 80,
+        }),
+        imageMin.svgo(),
+        imageMin.optipng(),
+        imageMin.gifsicle({ optimizationLevel: 3 })
+      ])
+    )
+    .pipe(gulp.dest(distBase));
+  done();
+}
 
 /**
  * php
@@ -182,6 +209,7 @@ const watchFiles = () => {
   gulp.watch(srcPath.scss, gulp.series(cssSass, browserSyncReload));
   gulp.watch(srcPath.js, gulp.series(bundleJs, browserSyncReload));
   gulp.watch(srcPath.img, gulp.series(image, browserSyncReload));
+  gulp.watch(srcPath.metaImg, gulp.series(metaImg, browserSyncReload));
 };
 
 /**
@@ -192,6 +220,6 @@ const watchFiles = () => {
  */
 exports.default = gulp.series(
   clean,
-  gulp.parallel(php, cssSass, bundleJs, image),
+  gulp.parallel(php, cssSass, bundleJs, image, metaImg),
   gulp.parallel(watchFiles, browserSyncFunc),
 );
